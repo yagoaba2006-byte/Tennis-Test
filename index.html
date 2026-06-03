@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Entraîneur - Test</title>
+    <title>TENNIS+ - Nos Entraîneurs Professionnels</title>
     <style>
         * {
             margin: 0;
@@ -11,11 +11,13 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-            min-height: 100vh;
+            background: #FFFFFF;
             overflow-x: hidden;
+            color: #1a1a1a;
         }
 
         /* HEADER */
@@ -29,6 +31,9 @@
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
@@ -41,8 +46,20 @@
             color: #C8F03C;
         }
 
-        /* MAIN CONTAINER */
-        .container {
+        nav a {
+            color: #1a1a1a;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #C8F03C;
+        }
+
+        /* HERO */
+        .hero {
             position: relative;
             width: 100%;
             min-height: 100vh;
@@ -50,159 +67,101 @@
             align-items: center;
             justify-content: center;
             padding: 150px 2rem 2rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9FFFE 100%);
+            overflow: hidden;
         }
 
-        /* PERSON CUTOUT - FLOATING */
-        .person-cutout {
+        .hero::before {
+            content: '';
             position: absolute;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 400px;
-            height: auto;
-            z-index: 10;
-            filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.2));
-            animation: float 3s ease-in-out infinite;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .person-cutout:hover {
-            filter: drop-shadow(0 40px 100px rgba(200, 240, 60, 0.4));
-            transform: translateY(-55%) scale(1.05);
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(-50%);
-            }
-            50% {
-                transform: translateY(-55%);
-            }
-        }
-
-        .person-cutout img {
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 16px;
-            object-fit: cover;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 100px, rgba(200, 240, 60, 0.01) 100px, rgba(200, 240, 60, 0.01) 101px),
+                repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(200, 240, 60, 0.01) 100px, rgba(200, 240, 60, 0.01) 101px);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* NAME LABEL ON HOVER */
-        .person-name {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #C8F03C;
-            color: #1a1a1a;
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(200, 240, 60, 0.15);
+            color: #C8F03C;
             padding: 0.8rem 1.6rem;
             border-radius: 50px;
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            opacity: 0;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            z-index: 50;
-        }
-
-        .person-cutout:hover .person-name {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-10px);
-        }
-
-        /* CONTENT SECTION */
-        .content {
-            position: relative;
-            z-index: 20;
-            max-width: 600px;
-            margin-right: 450px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #C8F03C, #a8d82f);
-            color: #1a1a1a;
-            padding: 0.6rem 1.4rem;
-            border-radius: 50px;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(200, 240, 60, 0.3);
         }
 
         h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
+            font-size: clamp(2.5rem, 8vw, 5rem);
             line-height: 1.1;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
             letter-spacing: -2px;
         }
 
-        .title {
-            font-size: 1.3rem;
-            color: #C8F03C;
-            font-weight: 700;
-            margin-bottom: 2rem;
+        h1 span {
+            background: linear-gradient(135deg, #C8F03C, #a8d82f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .description {
-            font-size: 1.05rem;
-            line-height: 1.8;
+        .hero-description {
+            font-size: 1.2rem;
             color: rgba(26, 26, 26, 0.7);
-            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* STATS / INFO */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .info-item {
-            background: rgba(200, 240, 60, 0.08);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid #C8F03C;
-        }
-
-        .info-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(26, 26, 26, 0.6);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .info-value {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #1a1a1a;
-        }
-
-        /* BUTTONS */
         .cta-buttons {
             display: flex;
             gap: 1.5rem;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 1rem 2.2rem;
+            padding: 1.2rem 2.8rem;
             border-radius: 50px;
             border: none;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-primary {
@@ -228,51 +187,55 @@
             transform: translateY(-4px);
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 1200px) {
-            .person-cutout {
-                width: 320px;
-                right: 3%;
-            }
-
-            .content {
-                margin-right: 350px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 5rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
+        .feature {
+            background: rgba(200, 240, 60, 0.08);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #C8F03C;
+        }
+
+        .feature h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: #1a1a1a;
+        }
+
+        .feature p {
+            font-size: 0.95rem;
+            color: rgba(26, 26, 26, 0.7);
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .container {
-                padding: 130px 1.5rem 2rem;
-                justify-content: flex-start;
+            header {
+                padding: 1.5rem;
             }
 
-            .person-cutout {
-                position: static;
-                width: 280px;
-                height: auto;
-                margin: 2rem auto;
-                transform: none;
-                animation: none;
+            nav {
+                display: none;
             }
 
-            .content {
-                margin-right: 0;
+            .hero {
+                padding: 120px 1.5rem 1.5rem;
             }
 
             h1 {
                 font-size: 2rem;
             }
 
-            .title {
-                font-size: 1.1rem;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
+            .hero-description {
+                font-size: 1rem;
             }
 
             .cta-buttons {
@@ -283,61 +246,55 @@
                 width: 100%;
                 text-align: center;
             }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- HEADER -->
     <header>
         <div class="logo">TENNIS<span>+</span></div>
+        <nav>
+            <a href="#entraîneurs">Nos entraîneurs</a>
+        </nav>
     </header>
 
-    <div class="container">
-        <!-- PERSON CUTOUT -->
-        <div class="person-cutout" onclick="window.location.href='profile-detail.html'">
-            <img src="profile-image.jpg" alt="Vincent">
-            <div class="person-name">Vincent</div>
-        </div>
-
-        <!-- CONTENT -->
-        <div class="content">
-            <div class="badge">Coach Pro</div>
-
-            <h1>Vincent<br>22 ans</h1>
-
-            <p class="title">Entraîneur Spécialiste Tennis</p>
-
-            <p class="description">
-                Avec plus de 15 ans d'expérience dans le coaching professionnel, je suis spécialisé dans le développement technique et la préparation compétitive. Mon approche combine rigueur, innovation et passion pour le tennis.
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Bienvenue chez TENNIS+</div>
+            
+            <h1>Trouvez votre<br><span>Entraîneur Idéal</span></h1>
+            
+            <p class="hero-description">
+                Découvrez notre équipe d'entraîneurs professionnels certifiés. Du débutant au compétiteur, nous avons l'expertise pour développer votre jeu et vous préparer aux plus grands défis du tennis.
             </p>
 
-            <!-- STATS -->
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">Tarif/Heure</div>
-                    <div class="info-value">10€</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Niveau</div>
-                    <div class="info-value">Pro</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Disponibilité</div>
-                    <div class="info-value">Flexible</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Spécialité</div>
-                    <div class="info-value">Service</div>
-                </div>
+            <div class="cta-buttons">
+                <a href="trainers-lando-style.html" class="btn btn-primary">Voir nos entraîneurs</a>
+                <a href="#" class="btn btn-secondary">Nous contacter</a>
             </div>
 
-            <!-- CTA -->
-            <div class="cta-buttons">
-                <button class="btn btn-primary">Réserver un cours</button>
-                <button class="btn btn-secondary">En savoir plus</button>
+            <div class="features">
+                <div class="feature">
+                    <h3>🎾 Expertise Reconnue</h3>
+                    <p>Diplômés d'État, ancien jouers de circuit, formation INSEP</p>
+                </div>
+                <div class="feature">
+                    <h3>👥 Tous Niveaux</h3>
+                    <p>Initiation, loisir, compétition et préparation physique</p>
+                </div>
+                <div class="feature">
+                    <h3>📍 À Nancy</h3>
+                    <p>Coaching individuel, groupe et stage weekend</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
 </body>
 </html>
