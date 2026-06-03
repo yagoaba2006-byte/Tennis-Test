@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vincent - Profil Entraîneur</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FFFFFF;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #C8F03C;
+        }
+
+        .back-btn {
+            background: #C8F03C;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.6rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(200, 240, 60, 0.4);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            height: 600px;
+            background: linear-gradient(135deg, #C8F03C, #a8d82f);
+            display: flex;
+            align-items: flex-end;
+            padding: 3rem 2rem;
+            margin-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(0,0,0,0.02) 80px, rgba(0,0,0,0.02) 81px),
+                repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(0,0,0,0.02) 80px, rgba(0,0,0,0.02) 81px);
+            pointer-events: none;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 2rem;
+            bottom: 2rem;
+            width: 350px;
+            height: auto;
+            z-index: 10;
+            filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.2));
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 20;
+            max-width: 700px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(26, 26, 26, 0.1);
+            color: #1a1a1a;
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(26, 26, 26, 0.8);
+            font-weight: 600;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            border-bottom: 3px solid #C8F03C;
+            padding-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: rgba(26, 26, 26, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .section ul {
+            list-style: none;
+        }
+
+        .section li {
+            padding: 0.8rem 0 0.8rem 1.5rem;
+            position: relative;
+            color: rgba(26, 26, 26, 0.7);
+            font-size: 1.05rem;
+        }
+
+        .section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #C8F03C;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(200, 240, 60, 0.08);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #C8F03C;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(26, 26, 26, 0.6);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        /* PRICING */
+        .pricing-item {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pricing-item strong {
+            font-size: 1rem;
+            color: #1a1a1a;
+        }
+
+        .pricing-item .price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #C8F03C;
+        }
+
+        /* CTA BUTTONS */
+        .cta-section {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.1rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .btn-primary {
+            background: #C8F03C;
+            color: #1a1a1a;
+            box-shadow: 0 10px 30px rgba(200, 240, 60, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(200, 240, 60, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #1a1a1a;
+            border: 2.5px solid #1a1a1a;
+        }
+
+        .btn-secondary:hover {
+            background: #1a1a1a;
+            color: #C8F03C;
+            transform: translateY(-4px);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .sections {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                height: 500px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem;
+            }
+
+            .hero {
+                height: 400px;
+                margin-top: 60px;
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-image {
+                width: 200px;
+                right: 1rem;
+                bottom: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.4rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">TENNIS<span>+</span></div>
+        <button class="back-btn" onclick="window.history.back()">← Retour</button>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-image">
+            <img src="profile-image.png" alt="Vincent">
+        </div>
+        <div class="hero-content">
+            <div class="badge">Coach Pro</div>
+            <h1>Vincent, 22 ans</h1>
+            <p class="hero-subtitle">Entraîneur Spécialiste Technique & Compétition</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="sections">
+            <!-- LEFT COLUMN -->
+            <div>
+                <div class="section">
+                    <h2>À propos</h2>
+                    <p>Vincent est un entraîneur passionné avec plus de 15 ans d'expérience dans le coaching professionnel. Spécialiste de la technique du service et de la tactique compétitive, il a accompagné plus de 120 joueurs vers l'excellence.</p>
+                    <p>Son approche pédagogique combine rigueur technique, préparation mentale et passion pour le tennis. Chaque joueur bénéficie d'un programme personnalisé adapté à ses objectifs.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Expérience & Certifications</h2>
+                    <ul>
+                        <li>Diplômé d'État Niveau 1 FFT</li>
+                        <li>15 ans de coaching professionnel</li>
+                        <li>120+ joueurs entraînés</li>
+                        <li>Ancien joueur de circuit ITF</li>
+                        <li>Formation INSEP en préparation mentale</li>
+                        <li>Spécialiste analyse vidéo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div>
+                <div class="section">
+                    <h2>Spécialités</h2>
+                    <ul>
+                        <li>Technique de service avancée</li>
+                        <li>Jeu rapide et tactique de match</li>
+                        <li>Préparation aux compétitions</li>
+                        <li>Coaching mental et confiance</li>
+                        <li>Analyse vidéo et stratégie</li>
+                        <li>Coaching groupe et individuel</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>Tarifs</h2>
+                    <div class="pricing-item">
+                        <strong>Cours individuel</strong>
+                        <span class="price">10€/h</span>
+                    </div>
+                    <div class="pricing-item">
+                        <strong>Forfait 10 cours</strong>
+                        <span class="price">90€</span>
+                    </div>
+                    <div class="pricing-item">
+                        <strong>Stage weekend</strong>
+                        <span class="price">80€</span>
+                    </div>
+                    <div class="pricing-item">
+                        <strong>Coaching groupe</strong>
+                        <span class="price">6€/pers</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Expérience</div>
+                    <div class="stat-value">15+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Joueurs Formés</div>
+                    <div class="stat-value">120</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Certifications</div>
+                    <div class="stat-value">FFT 1</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Satisfaction</div>
+                    <div class="stat-value">98%</div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+                <button class="btn btn-primary">Réserver un cours</button>
+                <button class="btn btn-secondary">Demander conseil</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
